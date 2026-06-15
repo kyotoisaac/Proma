@@ -1,9 +1,9 @@
 # electron-builder 配置
 # 文档: https://www.electron.build/configuration/configuration
 
-appId: com.proma.app
-productName: Proma
-copyright: Copyright © 2024-2026 Erlich Liu
+appId: com.peilizhiyun.app
+productName: 培立智云
+copyright: Copyright © 2026 PeiLi ZhiYun
 
 # Electron 版本（CI 环境 bun workspace 下无法自动检测，需显式指定）
 electronVersion: 39.5.1
@@ -130,11 +130,8 @@ nsis:
   createStartMenuShortcut: true
 
 # ============================================
-# 发布配置
-# 每个平台的 build job 通过 --publish always 直接上传到 GitHub Release。
-# electron-builder 会自动创建/复用 Release，并在多架构并行上传时合并 latest-mac.yml。
-# ============================================
-publish:
-  provider: github
-  owner: ErlichLiu
-  repo: Proma
+# 发布配置（已禁用，不发布到 GitHub Release）
+# publish:
+#   provider: github
+#   owner: ErlichLiu
+#   repo: Proma

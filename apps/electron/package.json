@@ -1,10 +1,10 @@
 {
   "name": "@proma/electron",
   "version": "0.12.6",
-  "description": "Proma next gen ai software with general agents - Electron App",
+  "description": "培立智云 — 教师 AI 教学辅助桌面助手",
   "main": "dist/main.cjs",
   "author": {
-    "name": "ErlichLiu",
+    "name": "PeiLi ZhiYun",
     "email": "erlichliu@gmail.com"
   },
   "private": true,
