@@ -19,8 +19,8 @@ import { Bot, MessageSquare } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const modes: { value: AppMode; label: string; icon: React.ReactNode }[] = [
-  { value: 'agent', label: 'Agent', icon: <Bot size={15} /> },
-  { value: 'chat', label: 'Chat', icon: <MessageSquare size={15} /> },
+  { value: 'agent', label: '工作区', icon: <Bot size={15} /> },
+  { value: 'chat', label: '对话', icon: <MessageSquare size={15} /> },
 ]
 
 export function ModeSwitcher(): React.ReactElement {

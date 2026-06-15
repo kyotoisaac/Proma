@@ -25,7 +25,6 @@ import {
 } from '@/components/ui/select'
 import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover'
-import { cn } from '@/lib/utils'
 import { ModelSelector } from '@/components/chat/ModelSelector'
 import {
   automationFormAtom,
@@ -643,7 +642,7 @@ export function AutomationFormView(): React.ReactElement | null {
                 <span>
                   <button
                     type="button"
-                    onClick={() => { void handleRunNow() }}
+                    onClick={handleRunNow}
                     disabled={runningNow || !isReadyToRun(form)}
                     className="titlebar-no-drag h-7 px-2.5 rounded-md text-xs font-medium bg-primary text-primary-foreground hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50 transition-colors flex items-center gap-1.5 shadow-sm"
                   >
@@ -1063,7 +1062,7 @@ export function AutomationFormView(): React.ReactElement | null {
         <div className="flex-shrink-0 px-4 py-3 border-t border-border/50 bg-content-area">
           <button
             type="button"
-            onClick={() => { void handleRunNow() }}
+            onClick={handleRunNow}
             disabled={runningNow || !canPersistDraft(form)}
             className="titlebar-no-drag w-full h-8 rounded-md text-xs font-medium bg-primary text-primary-foreground hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50 transition-colors flex items-center justify-center gap-1.5 shadow-sm"
           >
@@ -1075,3 +1074,5 @@ export function AutomationFormView(): React.ReactElement | null {
     </div>
   )
 }
+
+// vim: ts=2 sts=2 sw=2 et
