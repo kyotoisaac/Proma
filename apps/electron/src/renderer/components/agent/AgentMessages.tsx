@@ -345,18 +345,28 @@ export function buildUsageTooltip(durationMs: number, usage?: AgentEventUsage): 
     if (usage.outputTokens) lines.push(`输出: ${usage.outputTokens.toLocaleString()}`)
     if (usage.cacheCreationTokens) lines.push(`缓存写入: ${usage.cacheCreationTokens.toLocaleString()}`)
     if (usage.cacheReadTokens) lines.push(`缓存读取: ${usage.cacheReadTokens.toLocaleString()}`)
+    if (usage.costUsd !== undefined) {
+      const costCny = usage.costUsd * 7.2 // USD → CNY 粗略换算
+      lines.push(`费用: ¥${costCny.toFixed(4)}`)
+    }
   }
 
   return lines.join('\n')
 }
 
-/** 耗时徽章 — 悬浮显示 token 用量明细 */
+/** 耗时徽章 — 悬浮显示 token 用量明细，旁边显示费用 */
 export function DurationBadge({ durationMs, usage }: { durationMs: number; usage?: AgentEventUsage }): React.ReactElement {
+  const costCny = usage?.costUsd !== undefined ? usage.costUsd * 7.2 : null
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <span className="text-[15px] tabular-nums font-light cursor-default">
-          {formatDuration(durationMs)}
+        <span className="inline-flex items-center gap-2 text-[15px] tabular-nums font-light cursor-default">
+          <span>{formatDuration(durationMs)}</span>
+          {costCny !== null && (
+            <span className="text-[13px] text-muted-foreground/60 font-normal">
+              ¥{costCny.toFixed(4)}
+            </span>
+          )}
         </span>
       </TooltipTrigger>
       <TooltipContent side="top">
