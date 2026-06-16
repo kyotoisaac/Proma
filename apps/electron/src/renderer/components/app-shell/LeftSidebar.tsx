@@ -11,10 +11,11 @@
 import * as React from 'react'
 import { useAtom, useSetAtom, useAtomValue, useStore } from 'jotai'
 import { toast } from 'sonner'
-import { Pin, PinOff, Settings, Plus, Trash2, Pencil, Plug, Zap, PanelLeftClose, PanelLeftOpen, ArrowRightLeft, Search, Archive, ArchiveRestore, ArrowLeft, Bot, MessageSquare, MoreHorizontal, FolderOpen, GripVertical, Clock, AlarmClock } from 'lucide-react'
+import { Pin, PinOff, Settings, Plus, Trash2, Pencil, Plug, Zap, PanelLeftClose, PanelLeftOpen, ArrowRightLeft, Search, Archive, ArchiveRestore, ArrowLeft, Bot, MessageSquare, MoreHorizontal, FolderOpen, GripVertical, Clock, AlarmClock, MessageSquareText } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip'
 import { ModeSwitcher } from './ModeSwitcher'
+import { FeedbackDialog } from '@/components/FeedbackDialog'
 import { SearchDialog } from './SearchDialog'
 import { UserAvatar } from '@/components/chat/UserAvatar'
 import { activeViewAtom } from '@/atoms/active-view'
@@ -371,6 +372,7 @@ export function LeftSidebar({ width }: LeftSidebarProps): React.ReactElement {
   /** 新建项目输入状态 */
   const [creatingProject, setCreatingProject] = React.useState(false)
   const [newProjectName, setNewProjectName] = React.useState('')
+  const [feedbackOpen, setFeedbackOpen] = React.useState(false)
   const newProjectInputRef = React.useRef<HTMLInputElement>(null)
   const [relativeTimeNow, setRelativeTimeNow] = React.useState(() => Date.now())
   const [userProfile, setUserProfile] = useAtom(userProfileAtom)
@@ -1968,6 +1970,17 @@ export function LeftSidebar({ width }: LeftSidebarProps): React.ReactElement {
         </div>
       )}
 
+      {/* 底部：反馈入口 */}
+      <div className="px-3 pb-1.5">
+        <button
+          onClick={() => setFeedbackOpen(true)}
+          className="w-full flex items-center gap-2 px-3 py-2 rounded-[10px] text-xs text-foreground/45 hover:bg-foreground/[0.04] hover:text-foreground/60 transition-colors titlebar-no-drag"
+        >
+          <MessageSquareText size={13} />
+          <span>反馈与建议</span>
+        </button>
+      </div>
+
       {/* 底部：用户资料 + 设置入口 */}
       <div className="px-3 pb-3">
         <button
@@ -1989,6 +2002,7 @@ export function LeftSidebar({ width }: LeftSidebarProps): React.ReactElement {
       {projectDeleteDialog}
       {moveDialog}
       <SearchDialog />
+      <FeedbackDialog open={feedbackOpen} onOpenChange={setFeedbackOpen} />
     </div>
   )
 }
