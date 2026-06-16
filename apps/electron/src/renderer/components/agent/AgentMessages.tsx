@@ -334,6 +334,25 @@ export function formatDuration(ms: number): string {
   return `${m}m ${s.toFixed(0)}s`
 }
 
+/** DeepSeek V4 Flash 定价（人民币） */
+const DS_PRICE_INPUT_1M = 0.5    // 缓存未命中输入: ¥0.5/百万token
+const DS_PRICE_CACHE_1M = 0.25   // 缓存命中/创建: ¥0.25/百万token
+const DS_PRICE_OUTPUT_1M = 2.0   // 输出: ¥2/百万token
+
+/** 根据 token 用量估算 DeepSeek V4 Flash 费用 */
+function estimateDeepSeekCost(usage: AgentEventUsage): number {
+  const pureInput = (usage.inputTokens ?? 0) - (usage.cacheReadTokens ?? 0) - (usage.cacheCreationTokens ?? 0)
+  const output = usage.outputTokens ?? 0
+  const cacheRead = usage.cacheReadTokens ?? 0
+  const cacheCreate = usage.cacheCreationTokens ?? 0
+  const total =
+    (pureInput / 1_000_000) * DS_PRICE_INPUT_1M +
+    (cacheRead / 1_000_000) * DS_PRICE_CACHE_1M +
+    (cacheCreate / 1_000_000) * DS_PRICE_CACHE_1M +
+    (output / 1_000_000) * DS_PRICE_OUTPUT_1M
+  return total
+}
+
 /** 构建 usage tooltip 多行文本 */
 export function buildUsageTooltip(durationMs: number, usage?: AgentEventUsage): string {
   const lines: string[] = []
@@ -345,10 +364,8 @@ export function buildUsageTooltip(durationMs: number, usage?: AgentEventUsage): 
     if (usage.outputTokens) lines.push(`输出: ${usage.outputTokens.toLocaleString()}`)
     if (usage.cacheCreationTokens) lines.push(`缓存写入: ${usage.cacheCreationTokens.toLocaleString()}`)
     if (usage.cacheReadTokens) lines.push(`缓存读取: ${usage.cacheReadTokens.toLocaleString()}`)
-    if (usage.costUsd !== undefined) {
-      const costCny = usage.costUsd * 7.2 // USD → CNY 粗略换算
-      lines.push(`费用: ¥${costCny.toFixed(4)}`)
-    }
+    const cost = estimateDeepSeekCost(usage)
+    if (cost > 0) lines.push(`费用: ¥${cost.toFixed(4)}（DeepSeek V4 Flash 估价）`)
   }
 
   return lines.join('\n')
@@ -356,13 +373,13 @@ export function buildUsageTooltip(durationMs: number, usage?: AgentEventUsage): 
 
 /** 耗时徽章 — 悬浮显示 token 用量明细，旁边显示费用 */
 export function DurationBadge({ durationMs, usage }: { durationMs: number; usage?: AgentEventUsage }): React.ReactElement {
-  const costCny = usage?.costUsd !== undefined ? usage.costUsd * 7.2 : null
+  const costCny = usage ? estimateDeepSeekCost(usage) : null
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <span className="inline-flex items-center gap-2 text-[15px] tabular-nums font-light cursor-default">
           <span>{formatDuration(durationMs)}</span>
-          {costCny !== null && (
+          {costCny !== null && costCny > 0 && (
             <span className="text-[13px] text-muted-foreground/60 font-normal">
               ¥{costCny.toFixed(4)}
             </span>
