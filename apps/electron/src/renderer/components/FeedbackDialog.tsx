@@ -1,9 +1,10 @@
 import * as React from 'react'
+import { createPortal } from 'react-dom'
 import { MessageSquareText, Send, Loader2, Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
 
-interface FeedbackDialogProps {
+export interface FeedbackDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
 }
@@ -62,10 +63,10 @@ export function FeedbackDialog({ open, onOpenChange }: FeedbackDialogProps): Rea
 
   if (!open) return null
 
-  return (
+  return createPortal(
     <>
-      <div className="fixed inset-0 z-50 bg-black/20" onClick={() => onOpenChange(false)} />
-      <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+      <div className="fixed inset-0 z-[9999] bg-black/20" onClick={() => onOpenChange(false)} />
+      <div className="fixed inset-0 z-[9999] flex items-center justify-center pointer-events-none">
         <div
           className="pointer-events-auto w-[420px] max-w-[90vw] rounded-xl bg-background shadow-2xl border border-border"
           onClick={(e) => e.stopPropagation()}
@@ -110,6 +111,7 @@ export function FeedbackDialog({ open, onOpenChange }: FeedbackDialogProps): Rea
           </div>
         </div>
       </div>
-    </>
+    </>,
+    document.body,
   )
 }
