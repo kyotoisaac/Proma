@@ -74,9 +74,9 @@ search_files(dir="~/Documents", pattern="*分数*教案*")
 4. ✅ 是否符合 2022 版课程标准对应学段要求？
 
 输出格式：
-- 新教案以 Markdown 格式保存，文件名按"《课题》教案_YYYY-MM-DD.md"，可直接在右侧文件面板预览
-- 保存后自动转换为 docx 格式（调用 pandoc）：`pandoc "教案.md" -o "教案.docx"`
-- 如果电脑未安装 pandoc，仅保存 .md 文件即可，老师可后续用 Word 打开 .md 或手动转换
+- 教案保存在当前工作区的 workspace-files 目录下（可在右侧"工作区文件"面板直接预览）
+- 文件名按"《课题》教案_YYYY-MM-DD.md"
+- 保存后自动转换为 docx（pandoc），方便用 Word 打开编辑
 - 修改前先展示改动对比，征求老师确认
 - 引用参考资料时注明来源文件名
 ```
