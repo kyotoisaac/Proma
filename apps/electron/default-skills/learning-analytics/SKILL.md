@@ -1,7 +1,10 @@
 ---
 name: learning-analytics
 description: 学情分析 — 读取学生成绩数据，生成可视化分析和针对性教学建议
-version: "1.0.0"
+version: "1.0.1"
+when_to_use: 当老师提到分析成绩、学情、统计、数据、进步退步等关键词时
+allowed-tools: Read, Write, Edit, Glob, Grep
+user-invocable: true
 ---
 
 # 学情分析（Learning Analytics）

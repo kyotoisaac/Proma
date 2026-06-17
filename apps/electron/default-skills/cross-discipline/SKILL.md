@@ -1,7 +1,10 @@
 ---
 name: cross-discipline
 description: 跨学科协作 — 帮助老师发现跨学科融合点，匹配合适的协作老师
-version: "1.0.0"
+version: "1.0.1"
+when_to_use: 当老师提到跨学科、协作、融合、匹配、合作教学等关键词时
+allowed-tools: Read, Write, Edit, WebSearch, WebFetch
+user-invocable: true
 ---
 
 # 跨学科协作（Cross-Discipline Collaboration）

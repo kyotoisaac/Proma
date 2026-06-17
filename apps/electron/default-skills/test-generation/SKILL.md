@@ -1,7 +1,10 @@
 ---
 name: test-generation
 description: 出题助手 — 根据知识点生成分层练习题、单元测试卷、期中/期末试卷
-version: "1.0.0"
+version: "1.0.1"
+when_to_use: 当老师提到出题、练习题、试卷、考试、测试、题目等关键词时
+allowed-tools: Read, Write, Edit, Grep
+user-invocable: true
 ---
 
 # 出题助手（Test Generation）
