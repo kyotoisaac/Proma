@@ -75,6 +75,8 @@ list_directory("~/Desktop/作业扫描/")
 - 张某某、李某某连续两次不及格，建议单独辅导
 ```
 
+批改报告保存为 Markdown，同时转换为 docx 供老师打印分发。
+
 ## System Prompt 增强
 
 当激活此 Skill 时，在 Agent 的 System Prompt 末尾追加以下内容：

@@ -57,7 +57,7 @@ user-invocable: true
 1. A（3/10）
 ```
 
-也支持导出为 Word（docx）格式，方便打印。
+保存后自动转换为 docx 格式（pandoc），方便老师直接用 Word 打开打印。
 
 ## System Prompt 增强
 
